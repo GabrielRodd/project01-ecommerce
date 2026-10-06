@@ -4,6 +4,25 @@
 
 Este é um projeto de e-commerce fullstack.
 
+# Instruções do projeto
+
+Antes de realizar qualquer alteração:
+
+1. Leia este arquivo.
+2. Leia PROJECT_CONTEXT.md.
+3. Analise o estado atual do código.
+4. Verifique a etapa atual da roadmap.
+5. Não implemente etapas futuras sem autorização.
+
+PROJECT_CONTEXT.md contém o estado atual do projeto.
+
+Quando uma etapa for concluída:
+- atualize PROJECT_CONTEXT.md;
+- registre decisões importantes;
+- informe os arquivos alterados;
+- informe como testar;
+- sugira o próximo passo.
+
 ## Stack
 
 - Next.js
