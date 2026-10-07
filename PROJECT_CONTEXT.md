@@ -26,9 +26,13 @@ ETAPA 01 — concluída
 - Git configurado
 - Primeiro commit realizado
 
-ETAPA 02 — em andamento
+ETAPA 02 — concluída
 
-...
+- PostgreSQL conectado via Neon
+- Schema Prisma configurado com model Product (`price_cents`, `slug`, `stock`)
+- Migration inicial aplicada
+- Singleton do Prisma Client configurado em `src/lib/prisma.ts`
+- Script de seed (`prisma/seed.ts`) configurado e validado
 
 ## Decisões arquiteturais
 
@@ -54,7 +58,7 @@ Zustand.
 
 ## Próximo passo
 
-Configurar PostgreSQL e Prisma.
+ETAPA 03 — Catálogo de produtos na Home (Server Component buscando dados com Prisma).
 
 ## Problemas conhecidos
 
