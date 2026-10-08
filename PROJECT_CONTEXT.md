@@ -34,6 +34,13 @@ ETAPA 02 — concluída
 - Singleton do Prisma Client configurado em `src/lib/prisma.ts`
 - Script de seed (`prisma/seed.ts`) configurado e validado
 
+ETAPA 03 — concluída
+
+- Catálogo de produtos na Home implementado via Server Component assíncrono buscando dados com Prisma
+- Componente `ProductCard` criado com imagem remota, fallback e indicação de estoque
+- Utilitário `formatPrice` criado em `src/lib/formatters.ts` para formatação em BRL a partir de centavos
+- `next.config.ts` configurado com `remotePatterns` para imagens do Unsplash
+
 ## Decisões arquiteturais
 
 ### Banco
@@ -58,7 +65,7 @@ Zustand.
 
 ## Próximo passo
 
-ETAPA 03 — Catálogo de produtos na Home (Server Component buscando dados com Prisma).
+ETAPA 04 — Página de Detalhes do Produto (`/products/[slug]`) com Server Component, busca por slug e tratamento de `notFound()`.
 
 ## Problemas conhecidos
 
