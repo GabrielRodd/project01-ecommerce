@@ -41,6 +41,13 @@ ETAPA 03 — concluída
 - Utilitário `formatPrice` criado em `src/lib/formatters.ts` para formatação em BRL a partir de centavos
 - `next.config.ts` configurado com `remotePatterns` para imagens do Unsplash
 
+ETAPA 04 — concluída
+
+- Página de detalhes `/products/[slug]` implementada como Server Component assíncrono
+- Busca por slug com `prisma.product.findUnique` e `notFound()` para slugs inexistentes
+- `params` tratado como Promise (`await params`)
+- `ProductCard` agora é um `Link` para a página de detalhes
+
 ## Decisões arquiteturais
 
 ### Banco
@@ -65,7 +72,7 @@ Zustand.
 
 ## Próximo passo
 
-ETAPA 04 — Página de Detalhes do Produto (`/products/[slug]`) com Server Component, busca por slug e tratamento de `notFound()`.
+ETAPA 05 — Carrinho com Zustand (escopo a definir antes de implementar).
 
 ## Problemas conhecidos
 
