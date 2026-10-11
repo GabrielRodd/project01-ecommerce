@@ -4,6 +4,8 @@ export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { formatPrice } from "@/lib/formatters";
+import { AddToCartButton } from "@/components/AddToCartButton";
+
 
 interface ProductPageProps {
     params: Promise<{ slug: string }>;
@@ -57,6 +59,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     >
                         {isOutOfStock ? "Esgotado" : `${product.stock} em estoque`}
                     </span>
+                    <AddToCartButton
+                        product={{
+                            id: product.id,
+                            name: product.name,
+                            slug: product.slug,
+                            priceCents: product.priceCents,
+                            image: imageUrl,
+                            stock: product.stock,
+                        }}
+                    />
+
                 </div>
             </div>
         </main>

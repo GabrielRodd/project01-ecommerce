@@ -48,6 +48,16 @@ ETAPA 04 — concluída
 - `params` tratado como Promise (`await params`)
 - `ProductCard` agora é um `Link` para a página de detalhes
 
+ETAPA 05 — concluída
+
+- `zustand` instalado; store do carrinho em `src/store/cartStore.ts` com `persist` (localStorage, chave `ecommerce-cart`)
+- Ações: `addItem`, `removeItem`, `updateQuantity`, `clearCart`, `getTotalItems`, `getTotalPriceCents` (tudo em centavos, com limite de estoque)
+- `AddToCartButton` (Client Component) integrado na página de detalhes
+- `Header` global no `layout.tsx` com `CartButton` (link para `/cart` com badge de contagem)
+- Padrão `mounted` (useState + useEffect) para evitar hydration mismatch com o localStorage
+- Página `/cart` (Client Component) com alterar quantidade, remover, esvaziar e subtotal
+- Ambiente: `.env` com `DATABASE_URL` (Neon) necessário localmente; `npx prisma generate` após `npm install`
+
 ## Decisões arquiteturais
 
 ### Banco
@@ -72,7 +82,7 @@ Zustand.
 
 ## Próximo passo
 
-ETAPA 05 — Carrinho com Zustand (escopo a definir antes de implementar).
+ETAPA 06 — Autenticação com Clerk (escopo a definir antes de implementar).
 
 ## Problemas conhecidos
 
