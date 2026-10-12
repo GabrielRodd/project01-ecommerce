@@ -58,6 +58,16 @@ ETAPA 05 — concluída
 - Página `/cart` (Client Component) com alterar quantidade, remover, esvaziar e subtotal
 - Ambiente: `.env` com `DATABASE_URL` (Neon) necessário localmente; `npx prisma generate` após `npm install`
 
+ETAPA 06 — concluída
+
+- `@clerk/nextjs` instalado; aplicação criada no dashboard do Clerk
+- Chaves em `.env.local` (`NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`); nomes documentados em `.env.example`
+- `src/proxy.ts` com `clerkMiddleware()` (Next 16 usa `proxy.ts`, não `middleware.ts`); não protege nenhuma rota por padrão
+- `ClerkProvider` dentro do `<body>` em `src/app/layout.tsx`
+- `Header` com `Show` (signed-in/signed-out), `SignInButton`/`SignUpButton` (mode modal) e `UserButton`
+- Autorização real deve ser feita no servidor com `await auth()` (UI condicional não é segurança)
+- Ainda não há rotas protegidas nem sincronização do usuário com o banco (guardar `userId` do Clerk nos pedidos)
+
 ## Decisões arquiteturais
 
 ### Banco
@@ -70,7 +80,8 @@ Inteiros em centavos.
 
 ### Autenticação
 
-Clerk.
+Clerk: sessão via cookie validado no `proxy.ts`; usuários e senhas ficam no Clerk, não no Postgres. Proteção de rotas/ações com `await auth()` no servidor.
+
 
 ### Pagamento
 
@@ -80,9 +91,13 @@ Stripe Checkout + webhook.
 
 Zustand.
 
+### Autenticação (implementada)
+
+Clerk: sessão via cookie validado no `proxy.ts`; usuários e senhas ficam no Clerk, não no Postgres. Proteção de rotas/ações com `await auth()` no servidor.
+
 ## Próximo passo
 
-ETAPA 06 — Autenticação com Clerk (escopo a definir antes de implementar).
+ETAPA 07 — escopo a definir antes de implementar (candidatos: modelo de pedidos no Prisma com `userId` do Clerk + proteção do `/checkout`).
 
 ## Problemas conhecidos
 

@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { CartButton } from "@/components/CartButton";
+import { Show, SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+
 
 export function Header() {
     return (
@@ -9,10 +11,26 @@ export function Header() {
                     href="/"
                     className="text-xl font-bold tracking-tight text-zinc-900 hover:opacity-80 transition dark:text-zinc-100"
                 >
-                    DevStore
+                    GameStore
                 </Link>
                 <div className="flex items-center gap-4">
                     <CartButton />
+
+                    <Show when="signed-out">
+                        <SignInButton mode="modal">
+                            <button className="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition dark:text-zinc-300 dark:hover:text-zinc-100">
+                                Entrar
+                            </button>
+                        </SignInButton>
+                        <SignUpButton mode="modal">
+                            <button className="rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:opacity-80 transition dark:bg-zinc-100 dark:text-zinc-900">
+                                Cadastrar
+                            </button>
+                        </SignUpButton>
+                    </Show>
+                    <Show when="signed-in">
+                        <UserButton />
+                    </Show>
                 </div>
             </div>
         </header>
