@@ -68,6 +68,16 @@ ETAPA 06 — concluída
 - Autorização real deve ser feita no servidor com `await auth()` (UI condicional não é segurança)
 - Ainda não há rotas protegidas nem sincronização do usuário com o banco (guardar `userId` do Clerk nos pedidos)
 
+ETAPA 07 — concluída
+
+- Modelagem de pedidos no Prisma:
+  - `enum OrderStatus` (`PENDING`, `PAID`, `CANCELLED`);
+  - `model Order`: `userId` (referência ao Clerk com `@@index([userId])`), `status`, `totalCents`, `stripeSessionId` único;
+  - `model OrderItem`: chave estrangeira para `Order` (`onDelete: Cascade`) e para `Product` (`onDelete: Restrict`), `quantity` e snapshot de preço `priceCents`;
+  - Relação reversa `orderItems` adicionada ao `model Product`;
+- Migration `20261013130441_add_orders_and_order_items` gerada e aplicada com sucesso no PostgreSQL (Neon);
+- Prisma Client atualizado com os novos tipos (`Order`, `OrderItem`, `OrderStatus`).
+
 ## Decisões arquiteturais
 
 ### Banco
@@ -80,8 +90,7 @@ Inteiros em centavos.
 
 ### Autenticação
 
-Clerk: sessão via cookie validado no `proxy.ts`; usuários e senhas ficam no Clerk, não no Postgres. Proteção de rotas/ações com `await auth()` no servidor.
-
+Clerk: sessão via cookie validado no `proxy.ts`; usuários e senhas ficam no Clerk, não no Postgres. Proteção de rotas/ações com `await auth()` no servidor. `userId` do Clerk salvo em `orders` para vincular pedidos ao usuário logado.
 
 ### Pagamento
 
@@ -89,15 +98,11 @@ Stripe Checkout + webhook.
 
 ### Carrinho
 
-Zustand.
-
-### Autenticação (implementada)
-
-Clerk: sessão via cookie validado no `proxy.ts`; usuários e senhas ficam no Clerk, não no Postgres. Proteção de rotas/ações com `await auth()` no servidor.
+Zustand persistido em `localStorage`.
 
 ## Próximo passo
 
-ETAPA 07 — escopo a definir antes de implementar (candidatos: modelo de pedidos no Prisma com `userId` do Clerk + proteção do `/checkout`).
+ETAPA 08 — Checkout e integração com Stripe (ou Server Action para criação do pedido a partir do carrinho autenticado).
 
 ## Problemas conhecidos
 
