@@ -78,6 +78,14 @@ ETAPA 07 — concluída
 - Migration `20261013130441_add_orders_and_order_items` gerada e aplicada com sucesso no PostgreSQL (Neon);
 - Prisma Client atualizado com os novos tipos (`Order`, `OrderItem`, `OrderStatus`).
 
+ETAPA 08 — concluída
+
+- `stripe` instalado; client server-only em `src/lib/stripe.ts` (`STRIPE_SECRET_KEY` em `.env.local`, falha se ausente)
+- Server Action `createCheckout` em `src/app/actions/checkout.ts`: valida `auth()`, recebe só `productId` e `quantity`, busca preço/estoque no banco, cria `Order` PENDING com `OrderItem` (snapshot de preço), cria Stripe Checkout Session (`metadata.orderId`), salva `stripeSessionId` e redireciona
+- `CheckoutButton` no carrinho; páginas de retorno do checkout e `/checkout/cancel`
+- Pedido permanece `PENDING` após o pagamento; só o webhook (etapa 09) pode marcar `PAID`
+- Gotcha: após alterar o schema, rodar `npx prisma generate` e reiniciar o `npm run dev` (singleton em `globalThis` mantém o client antigo; sintoma: `prisma.order` undefined)
+
 ## Decisões arquiteturais
 
 ### Banco
@@ -102,7 +110,7 @@ Zustand persistido em `localStorage`.
 
 ## Próximo passo
 
-ETAPA 08 — Checkout e integração com Stripe (ou Server Action para criação do pedido a partir do carrinho autenticado).
+ETAPA 09 — Webhook do Stripe (idempotente) para marcar pedido como `PAID`, tratar `checkout.session.expired`, baixar estoque e limpar o carrinho.
 
 ## Problemas conhecidos
 

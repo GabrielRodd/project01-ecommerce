@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCartStore } from "@/store/cartStore";
 import { formatPrice } from "@/lib/formatters";
+import { CheckoutButton } from "@/components/CheckoutButton";
+
 
 export default function CartPage() {
     const [mounted, setMounted] = useState(false);
@@ -129,6 +131,9 @@ export default function CartPage() {
                     <p className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
                         {formatPrice(totalPriceCents)}
                     </p>
+                    <div className="mt-4">
+                        <CheckoutButton />
+                    </div>
                 </div>
             </div>
         </main>
