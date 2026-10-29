@@ -1,8 +1,10 @@
 import Link from "next/link";
+import ClearCartOnMount from "@/components/ClearCartOnMount";
 
 export default function CheckoutSuccessPage() {
     return (
         <main className="mx-auto w-full max-w-2xl px-4 py-16 text-center sm:px-6 lg:px-8">
+            <ClearCartOnMount />
             <h1 className="text-2xl font-bold text-zinc-900 sm:text-3xl dark:text-zinc-100">
                 Pagamento recebido!
             </h1>
