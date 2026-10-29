@@ -109,6 +109,16 @@ ETAPA 09 — concluída
   - o `resend` precisa do ID de um evento do tipo tratado (`checkout.session.completed`), não de `charge.updated`;
   - reiniciar o `npm run dev` após mudar o `.env.local`.
 
+ETAPA 10 — concluída
+
+- Página `/orders` em `src/app/orders/page.tsx` (Server Component assíncrono, `force-dynamic`):
+  - `await auth()` no servidor; sem `userId` faz `redirect("/")`;
+  - `prisma.order.findMany` com `where: { userId }`, `orderBy: { createdAt: "desc" }` e `include` aninhado (`items` → `product`); o filtro por `userId` impede ver pedidos de outros usuários;
+  - mostra data, status (`STATUS_LABEL`/`STATUS_STYLE` com `as const`), itens com o snapshot `item.priceCents` e total; estado vazio com link para o catálogo.
+- Link "Meus Pedidos" no `Header`, dentro de `<Show when="signed-in">`.
+- Pedidos `PENDING` (checkout abandonado) aparecem como "Aguardando pagamento" até a sessão do Stripe expirar.
+- Testes realizados: redirect quando deslogado, listagem dos pedidos do usuário e estado vazio.
+- Gotcha (Clerk): `CLERK_SECRET_KEY` truncada/inválida no `.env.local` faz o login funcionar no navegador (chave pública), mas o servidor rejeita a sessão. Sintomas: `Header` mostra Entrar/Cadastrar, `auth()` devolve `null` e o erro `cannot_render_single_session_enabled` aparece ao clicar em "Entrar". Solução: copiar a chave completa em Clerk Dashboard → API Keys e reiniciar o `npm run dev`. O `.env.local` não vai para o Git, então confira em cada máquina.
 ## Decisões arquiteturais
 
 ### Banco
@@ -133,7 +143,7 @@ Zustand persistido em `localStorage`.
 
 ## Próximo passo
 
-Aguardando definição da ETAPA 10 (sugestões: página/histórico de pedidos do usuário logado, e-mail de confirmação com Resend, deploy na Vercel com webhook cadastrado no dashboard do Stripe). Opcionalmente, resolver antes o ponto de estoque descrito em "Problemas conhecidos".
+Aguardando definição da ETAPA 11 (sugestões: e-mail de confirmação com Resend, deploy na Vercel com webhook cadastrado no dashboard do Stripe). Opcionalmente, resolver antes o ponto de estoque descrito em "Problemas conhecidos".
 
 ## Problemas conhecidos
 

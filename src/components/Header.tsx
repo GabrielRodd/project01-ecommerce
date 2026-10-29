@@ -29,6 +29,12 @@ export function Header() {
                         </SignUpButton>
                     </Show>
                     <Show when="signed-in">
+                        <Link
+                            href="/orders"
+                            className="text-sm font-medium text-zinc-700 hover:text-zinc-900 transition dark:text-zinc-300 dark:hover:text-zinc-100"
+                        >
+                            Meus Pedidos
+                        </Link>
                         <UserButton />
                     </Show>
                 </div>
